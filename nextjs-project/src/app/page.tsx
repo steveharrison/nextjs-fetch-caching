@@ -1,13 +1,14 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { cache } from "react";
 
-async function doTheFetch() {
+const doTheFetch = cache(async () => {
   const response = await fetch(
-    "http://localhost:9000/index.html",
+    "http://localhost:9000",
     { method: "GET" }
   );
   return response.text();
-}
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const fetchedData = await doTheFetch();
